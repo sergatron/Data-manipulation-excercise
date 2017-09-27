@@ -11,11 +11,11 @@ head(refine)
 # convert to lower case, and eliminate spelling errors
 # philips, akzo, van houten, unilever
 # use 'gsub' to find pattern at every instance and replace with correct spelling
-company_lower = tolower(refine$company)
-philips_clean = gsub(pattern = '^p.*ps$|^fi.*ps$', replacement = 'philips', x = company_lower) 
-akzo_clean =  gsub(pattern = '^ak.*o$|^ak.*0$', replacement = 'akzo', x = philips_clean)
-unilever_clean =  gsub(pattern = '^uni.*ver$', replacement = 'unilever', x = akzo_clean)
-company_clean =  gsub(pattern = '^van.*ten$', replacement = 'van houten', x = unilever_clean)
+company_lower   = tolower(refine$company)
+philips_clean   = gsub(pattern = '^p.*ps$|^fi.*ps$', replacement = 'philips', x = company_lower) 
+akzo_clean      =  gsub(pattern = '^ak.*o$|^ak.*0$', replacement = 'akzo', x = philips_clean)
+unilever_clean  =  gsub(pattern = '^uni.*ver$', replacement = 'unilever', x = akzo_clean)
+company_clean   =  gsub(pattern = '^van.*ten$', replacement = 'van houten', x = unilever_clean)
 company_clean
 
 
@@ -67,18 +67,15 @@ class(full_address)
 # add four binary columns for each company: company_philips, company_akzo, company_unilever, company_van_houten
 # add four binary columns for each product category: product_smartphone, product_TV, product_laptop, product_tablet
 
-refine_clean$phillipsbinary = ifelse(refine_clean$company_clean == company_philips, 1,0)
-refine_clean$akzosbinary = ifelse(refine_clean$company_clean == company_akzo, 1,0)
-refine_clean$unileverbinary = ifelse(refine_clean$company_clean == company_unilever, 1,0)
-refine_clean$vanhoutenbinary = ifelse(refine_clean$company_clean == company_van_houten, 1,0)
+company_philips     = ifelse(refine_clean$company_clean == 'philips', 1,0)
+company_akzo        = ifelse(refine_clean$company_clean == 'akzo', 1,0)
+company_unilever    = ifelse(refine_clean$company_clean == 'unilever', 1,0)
+company_van_houten  = ifelse(refine_clean$company_clean == 'van houten', 1,0)
 
-refine_clean$smartphonebinary = ifelse(refine_clean$company_clean == product_smartphone, 1,0)
-refine_clean$TVbinary =ifelse(refine_clean$company_clean == product_TV, 1,0)
-refine_clean$laptopbinary = ifelse(refine_clean$company_clean == product_laptop, 1,0)
-refine_clean$tabletbinary = ifelse(refine_clean$company_clean == product_tablet, 1,0)
-
-class(company_philips)
-glimpse(refine)
+product_smartphone  = ifelse(refine_clean$product_category == 'Smartphone', 1,0)
+product_TV          = ifelse(refine_clean$product_category == 'TV', 1,0)
+product_laptop      = ifelse(refine_clean$product_category == 'Laptop', 1,0)
+product_tablet      = ifelse(refine_clean$product_category == 'Tablet', 1,0)
 
 # ------ PUT IT ALL TOGETHER ------
 # each component must be one-dimensional vector
