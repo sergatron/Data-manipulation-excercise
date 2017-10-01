@@ -117,3 +117,7 @@ titanic_clean2 =
                             boat = 'None',
                             embarked = 'S')) %>%
   mutate(has_cabin_number = ifelse(is.na(cabin), 0, 1))
+
+titanic_clean2 %>%
+  filter(is.na(age), is.na(embarked), is.na(boat)) %>%
+  summarise(age_count = n(), embarked_count = n(), boat_count = n())
